@@ -112,18 +112,6 @@ public class ContactsTextUI {
                 Gender gender = input.nextLine();
                 System.out.print("Enter the Date of Birth: ");
                 Long dob = input.nextLong();
-                System.out.print("Enter the client's account type: ");
-                String accountType = input.nextLine();
-                System.out.print("Enter the client's balance: ");
-                Double balance = input.nextDouble();
-                System.out.print("Enter the client's street: ");
-                String street = input.nextLine();
-                System.out.print("Enter the client's parish location: ");
-                String parish = input.nextLine();
-                System.out.print("Enter the client's primary telephone number: ");
-                String tel1 = input.nextLine();
-                System.out.print("Enter the client's secondary telephone number: ");
-                String tel2 = input.nextLine();
                 //app.addContact
                 System.out.println();
                 System.out.print("Business client registered. Press any key to continue or 'c' to go back: ");
