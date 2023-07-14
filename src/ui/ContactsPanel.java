@@ -64,9 +64,38 @@ public ContactsPanel(){
         pnlDisplay.setBackground(Color.white);
         pnlDisplay.setLayout(new BoxLayout(pnlDisplay, BoxLayout.Y_AXIS));
         pnlDisplay.add(Box.createRigidArea(new Dimension(50, 200)));
+        
+        pnlCommand=new JPanel();
 
+        pnlCommand.add(cmdCreate);
+        pnlCommand.add(cmdView);
+        pnlCommand.add(cmdEdit);
+        pnlCommand.add(cmdDelete);
         pnlCommand.add(cmdSort);
-        pnlDisplay.add(Box.createRigidArea(new Dimension(150, 0)));
+        pnlCommand.add(Box.createRigidArea(new Dimension(150, 0)));
+
+
+        cmdCreate  = new JButton("Create Contact");
+        cmdView  = new JButton("View Contact");
+        cmdEdit   = new JButton("Edit Contact");
+        cmdDelete= new JButton("Delete Contact");
+        cmdSort = new JButton("Sort Contact");
+
+      cmdCreate.setBackground(Color.pink);
+      cmdView.setBackground(Color.pink); 
+      cmdEdit.setBackground(Color.CYAN);
+      cmdDelete.setBackground(Color.pink);
+      cmdSort.setBackground(Color.BLUE);
+          
+
+        cmdCreate.addActionListener(new CreateButtonListener());
+        cmdView.addActionListener(new ViewButtonListener());
+        cmdEdit.addActionListener(new EditButtonListener());
+        cmdDelete.addActionListener(new DeleteButtonListener());
+        cmdSort.addActionListener(new SortButtonListener());
+
+
+       
 
         panel3 = new JPanel();
         panel3.setBackground(Color.gray);
@@ -103,10 +132,7 @@ public ContactsPanel(){
         add(pnlCommand, BorderLayout.WEST);
         add(pnlDisplay, BorderLayout.SOUTH);
 
-        // Add the listener to the "Sort" button
-        //cmdSort.addActionListener(new SortButtonListener());
-
-        
+       
        
         
        // updateDisplayData();
@@ -121,30 +147,27 @@ public ContactsPanel(){
 
         // Assuming label9 is the label that displays patient information
         label9.setText(sb.toString());
-    }
+    }/* */
 
-   private class SortButtonListener implements ActionListener {
+   private class CreateButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
-       
-        sortByTemperature = !sortByTemperature;
-
-        if (sortByTemperature) {
-            patientManager.sortbyTemperature(); // Sort by temperature
-            buttonSort.setText("Sort by Name");
-        } else {
-            patientManager.sortbyName(); // Sort by name
-            buttonSort.setText("Sort by Temperature");
-        }
-
-        updateDisplayData();
+    }
+}
+  private class ViewButtonListener implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+ private class EditButtonListener implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+ private class DeleteButtonListener implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+    }
+} private class SortButtonListener implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
     }
 }
 
    
-}
-
-        
-}
-
-}/* */
 }
