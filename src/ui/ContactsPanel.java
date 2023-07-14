@@ -6,8 +6,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -37,10 +39,10 @@ public class ContactsPanel extends JPanel{
     private JButton     cmdView;
     private JButton     cmdEdit;
     private JButton     cmdDelete;
-    private JButton     Sort;
 
      private JPanel      pnlCommand;
     private JPanel      pnlDisplay;
+    //Pri
     //private ArrayList<Con> plist;
     private ContactsPanel thisForm;
     private  JScrollPane scrollPane;
@@ -48,7 +50,7 @@ public class ContactsPanel extends JPanel{
     private JTable table;
     private DefaultTableModel model;
     //private int age;
-}
+
 public ContactsPanel(){
     setLayout(new BorderLayout());
 
@@ -56,11 +58,5 @@ public ContactsPanel(){
         pnlDisplay.setBackground(Color.white);
         pnlDisplay.setLayout(new BoxLayout(pnlDisplay, BoxLayout.Y_AXIS));
         pnlDisplay.add(Box.createRigidArea(new Dimension(50, 200)));
-        
-
-        pnlCommand.add(cmdSort);
-        pnlDisplay.add(Box.createRigidArea(new Dimension(150, 0)));
-
-        
         
 }
