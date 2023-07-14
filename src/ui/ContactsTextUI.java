@@ -108,27 +108,17 @@ public class ContactsTextUI {
                 String fname = input.nextLine();
                 System.out.println("Enter the Last Name: ");
                 String lname = input.nextLine();
-                System.out.print("Enter the Gender: ");
-                Gender gender = input.nextLine();
+                //System.out.print("Enter the Gender: ");
+                // gender = input.nextLine();
                 System.out.print("Enter the Date of Birth: ");
                 Long dob = input.nextLong();
-                System.out.print("Enter the client's account type: ");
-                String accountType = input.nextLine();
-                System.out.print("Enter the client's balance: ");
-                Double balance = input.nextDouble();
-                System.out.print("Enter the client's street: ");
-                String street = input.nextLine();
-                System.out.print("Enter the client's parish location: ");
-                String parish = input.nextLine();
-                System.out.print("Enter the client's primary telephone number: ");
-                String tel1 = input.nextLine();
-                System.out.print("Enter the client's secondary telephone number: ");
-                String tel2 = input.nextLine();
+                System.out.print("Enter the Alias: ");
+                String alias = input.nextLine();
                 //app.addContact
                 System.out.println();
-                System.out.print("Business client registered. Press any key to continue or 'c' to go back: ");
+                System.out.print("New Contact registered. Press any key to continue or 'n' to go back: ");
                 String choice = input.nextLine();
-                if (choice.equals("c")) {
+                if (choice.equals("n")) {
                     break;
                 }
             }catch(InputMismatchException | NumberFormatException e){
