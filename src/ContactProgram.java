@@ -7,7 +7,7 @@ import ui.ContactsTextUI;
 public class ContactProgram {
     public static void main(String[] args) {
         // for the line below set it to your own filename and delimiter for each part of the line
-        ContactsApp app = new ContactsApp("filename", '|');
+        ContactsApp app = new ContactsApp("filename");
 
         ContactsTextUI text_ui = new ContactsTextUI();
         ContactsGUI gui = new ContactsGUI();

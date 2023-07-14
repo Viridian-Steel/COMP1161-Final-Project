@@ -1,6 +1,6 @@
 package contact;
 
-public class Person {
+public class Person implements  java.io.Serializable {
     private Name name;
     private Gender gender;
     private long DOB;
