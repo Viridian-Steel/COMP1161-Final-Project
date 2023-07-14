@@ -58,7 +58,11 @@ public class ContactsPanel extends JPanel{
     //private int age;
 
 public ContactsPanel(){
-    setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
+
+        //test
+        cmdSort = new JButton();
+        pnlCommand = new JPanel();
 
         pnlDisplay = new JPanel();
         pnlDisplay.setBackground(Color.white);

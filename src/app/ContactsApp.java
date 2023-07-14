@@ -18,11 +18,13 @@ public class ContactsApp {
     /**
      * ContactsApp Constructor (Complete this constructor)
      * @param filename
-     * @param delimiter
+     * 
      */
     public ContactsApp(String filename){
 
         data = new ContactsDB(filename);
+
+        contact_list = data.getDb();
     }
 
     /**
@@ -158,6 +160,10 @@ public class ContactsApp {
 		}
 		return res;
 	}
+
+    public ContactsDB getDB(){
+        return data;
+    }
 
     /**
      * returnInfoByName method
