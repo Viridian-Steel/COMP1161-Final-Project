@@ -112,11 +112,13 @@ public class ContactsTextUI {
                 Gender gender = input.nextLine();
                 System.out.print("Enter the Date of Birth: ");
                 Long dob = input.nextLong();
+                System.out.print("Enter the Alias: ");
+                String alias = input.nextLine();
                 //app.addContact
                 System.out.println();
-                System.out.print("Business client registered. Press any key to continue or 'c' to go back: ");
+                System.out.print("New Contact registered. Press any key to continue or 'n' to go back: ");
                 String choice = input.nextLine();
-                if (choice.equals("c")) {
+                if (choice.equals("n")) {
                     break;
                 }
             }catch(InputMismatchException | NumberFormatException e){
