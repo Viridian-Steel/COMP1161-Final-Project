@@ -108,8 +108,8 @@ public class ContactsTextUI {
                 String fname = input.nextLine();
                 System.out.println("Enter the Last Name: ");
                 String lname = input.nextLine();
-                System.out.print("Enter the Gender: ");
-                Gender gender = input.nextLine();
+                //System.out.print("Enter the Gender: ");
+                // gender = input.nextLine();
                 System.out.print("Enter the Date of Birth: ");
                 Long dob = input.nextLong();
                 System.out.print("Enter the Alias: ");
