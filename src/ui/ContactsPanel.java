@@ -25,6 +25,7 @@ import javax.swing.table.*;
 import javax.swing.table.DefaultTableModel;
 
 import contact.Person;
+import data.ContactsDB;
 
 import java.util.Comparator;
 import java.util.Collections;
@@ -39,10 +40,15 @@ public class ContactsPanel extends JPanel{
     private JButton     cmdView;
     private JButton     cmdEdit;
     private JButton     cmdDelete;
+    private JButton     cmdSort;
 
      private JPanel      pnlCommand;
-    private JPanel      pnlDisplay;
-    //Pri
+     private JPanel      pnlDisplay;
+     private JPanel      panel3;
+     private JPanel      panel4;
+     private JPanel      panel5;
+     private JLabel      label;
+     JLabel label9;
     //private ArrayList<Con> plist;
     private ContactsPanel thisForm;
     private  JScrollPane scrollPane;
@@ -58,5 +64,87 @@ public ContactsPanel(){
         pnlDisplay.setBackground(Color.white);
         pnlDisplay.setLayout(new BoxLayout(pnlDisplay, BoxLayout.Y_AXIS));
         pnlDisplay.add(Box.createRigidArea(new Dimension(50, 200)));
+
+        pnlCommand.add(cmdSort);
+        pnlDisplay.add(Box.createRigidArea(new Dimension(150, 0)));
+
+        panel3 = new JPanel();
+        panel3.setBackground(Color.gray);
+        panel3.setPreferredSize(new Dimension(360, 240));
+
+        panel4 = new JPanel();
+        panel4.setLayout(new BoxLayout(panel4, BoxLayout.Y_AXIS));
+
+        JPanel pan1 = new JPanel();
+        pan1.setBackground(Color.gray);
+
+        JPanel pan2 = new JPanel();
+        pan2.setBackground(Color.white);
+        pan2.setPreferredSize(new Dimension(30, 30));
+
+        label = new JLabel("Contacts AddressBook Management System");
+        pan1.add(label);
+
+        panel4.add(pan1);
+        panel4.add(pan2);
+
+        panel5 = new JPanel();
+        panel5.setBackground(Color.white);
+        panel5.setPreferredSize(new Dimension(150, 150));
+
+        // Initialize label9
+        label9 = new JLabel("Data will be displayed here");
+        panel5.add(label9);
+        panel3.add(label9);
+
+        add(panel3, BorderLayout.CENTER);
+        add(panel4, BorderLayout.NORTH);
+        add(panel5, BorderLayout.EAST);
+        add(pnlCommand, BorderLayout.WEST);
+        add(pnlDisplay, BorderLayout.SOUTH);
+
+        // Add the listener to the "Sort" button
+        //cmdSort.addActionListener(new SortButtonListener());
+
         
+       
+        
+       // updateDisplayData();
+    }
+
+    
+    /*private void updateDisplayData() {
+        StringBuilder sb = new StringBuilder();
+        for (Patient patient : patientManager.getListOfPatients()) {
+            sb.append(patient.getName()).append(" ").append(patient.getTemperature()).append("                        " );
+        }
+
+        // Assuming label9 is the label that displays patient information
+        label9.setText(sb.toString());
+    }
+
+   private class SortButtonListener implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+       
+        sortByTemperature = !sortByTemperature;
+
+        if (sortByTemperature) {
+            patientManager.sortbyTemperature(); // Sort by temperature
+            buttonSort.setText("Sort by Name");
+        } else {
+            patientManager.sortbyName(); // Sort by name
+            buttonSort.setText("Sort by Temperature");
+        }
+
+        updateDisplayData();
+    }
+}
+
+   
+}
+
+        
+}
+
+}/* */
 }
