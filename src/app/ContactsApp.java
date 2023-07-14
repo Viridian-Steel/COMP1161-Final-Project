@@ -20,9 +20,9 @@ public class ContactsApp {
      * @param filename
      * @param delimiter
      */
-    public ContactsApp(String filename, char delimiter){
+    public ContactsApp(String filename){
 
-        data = new ContactsDB(filename, delimiter);
+        data = new ContactsDB(filename);
     }
 
     /**

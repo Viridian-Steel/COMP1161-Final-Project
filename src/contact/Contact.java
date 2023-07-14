@@ -204,6 +204,20 @@ public class Contact extends Person implements Comparable<Contact> {
         return result;
     }
 
+
+    public String toSaveFormat(String delimiter){
+        String r = "";
+        r += getName() + delimiter;
+        r += getGender() + delimiter;
+        r += String.valueOf(getDOB()) + delimiter;
+
+        for (String email : email_list){
+            r += email + delimiter;
+        }
+
+        return r;
+    }
+
     /**
      * // TODO: implement this method with the correct comparison replacing the 0
      * @param other The object that will be compared to
