@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Dimension;
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -36,6 +37,7 @@ public class ContactsPanel extends JPanel{
     private JButton     cmdView;
     private JButton     cmdEdit;
     private JButton     cmdDelete;
+    private JButton     Sort;
 
      private JPanel      pnlCommand;
     private JPanel      pnlDisplay;
@@ -54,5 +56,11 @@ public ContactsPanel(){
         pnlDisplay.setBackground(Color.white);
         pnlDisplay.setLayout(new BoxLayout(pnlDisplay, BoxLayout.Y_AXIS));
         pnlDisplay.add(Box.createRigidArea(new Dimension(50, 200)));
+        
+
+        pnlCommand.add(cmdSort);
+        pnlDisplay.add(Box.createRigidArea(new Dimension(150, 0)));
+
+        
         
 }
