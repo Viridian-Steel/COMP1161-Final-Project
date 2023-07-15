@@ -5,7 +5,7 @@
  */
 package contact;
 
-public class Name {
+public class Name implements java.io.Serializable {
     
     // attributes of the Name class
     private String first_name, last_name;

@@ -102,7 +102,7 @@ public class ContactsDB {
      */
     private CaResult Save(){
         try {
-            out = new ObjectOutputStream(new FileOutputStream(filename));
+            out = new ObjectOutputStream(new FileOutputStream(filename, false));
             out.writeObject(db);
             out.flush();
             out.close();
