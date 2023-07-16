@@ -63,9 +63,34 @@ public ContactsPanel(){
         pnlDisplay = new JPanel();
         pnlDisplay.setBackground(Color.white);
         pnlDisplay.setLayout(new BoxLayout(pnlDisplay, BoxLayout.Y_AXIS));
-        pnlDisplay.add(Box.createRigidArea(new Dimension(50, 200)));
+        //pnlDisplay.add(Box.createRigidArea(new Dimension(50, 200)));
         
+
+       
+       
         pnlCommand=new JPanel();
+        pnlCommand.setBackground(Color.white);
+        pnlCommand.setLayout(new BoxLayout(pnlCommand,BoxLayout.X_AXIS));
+
+       
+        cmdCreate  = new JButton("Create Contact");
+        cmdView  = new JButton("View Contact");
+        cmdEdit   = new JButton("Edit Contact");
+        cmdDelete= new JButton("Delete Contact");
+        cmdSort = new JButton("Sort Contact");
+
+        pnlCommand.add(Box.createRigidArea(new Dimension(104,0)));
+        pnlCommand.add(cmdCreate);
+        pnlCommand.add(Box.createHorizontalGlue());
+        pnlCommand.add(cmdView);
+        pnlCommand.add(Box.createHorizontalGlue());
+        pnlCommand.add(cmdEdit);
+        pnlCommand.add(Box.createHorizontalGlue());
+        pnlCommand.add(cmdDelete);
+        pnlCommand.add(Box.createHorizontalGlue());
+        pnlCommand.add(cmdSort);
+        pnlCommand.add(Box.createRigidArea(new Dimension(150,0)));
+       
 
         pnlCommand.add(cmdCreate);
         pnlCommand.add(cmdView);
@@ -75,11 +100,6 @@ public ContactsPanel(){
         pnlCommand.add(Box.createRigidArea(new Dimension(150, 0)));
 
 
-        cmdCreate  = new JButton("Create Contact");
-        cmdView  = new JButton("View Contact");
-        cmdEdit   = new JButton("Edit Contact");
-        cmdDelete= new JButton("Delete Contact");
-        cmdSort = new JButton("Sort Contact");
 
       cmdCreate.setBackground(Color.pink);
       cmdView.setBackground(Color.pink); 
