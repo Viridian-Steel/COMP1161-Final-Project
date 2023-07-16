@@ -27,19 +27,34 @@ public class ContactsDB {
 
     public ContactsDB(String filename){
         this.filename = filename;
+        
+        try {
+            File file = new File(filename);
+            if(file.createNewFile()){
+                System.out.println("File Created");
+            }
+            else{
+                System.out.println("File Exists");
+            }
+        } catch (IOException e) {
+            System.out.println("File Error");
+            
+        }
 
         try {
             in = new ObjectInputStream(new FileInputStream(filename));
             updateDb();
-            in.close(); // just closing it manually, no need for it to be open after initialization.
+            in.close();
         } catch (IOException | NullPointerException ioe) {
             System.out.println("Error while reading File");
-            System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
         } catch (SecurityException sec_e){
             System.out.println("Object presents a security threat");
             System.out.println(sec_e.getMessage());
+        } catch (ClassNotFoundException clE){
+            clE.printStackTrace();
         }
-
+    
     }
 
     /**
@@ -64,32 +79,19 @@ public class ContactsDB {
      * Populates the Database by pulling from the SaveFile.
      * 
      * @return {@link CaResult#CARESULT_SUCESS} if sucessful. 
-     * {@link CaResult#CARESULT_CLASS_MISMATCH_ERROR} if the Class used is not seriablizable, contains a class tht is not serializable, or is incompatible with the class in the SaveFile.
-     * {@link CaResult#CARESULT_DESERIALIZATION_ERROR} if the InputStream or File is Corrupted, {@link CaResult#CARESULT_FILE_ERROR} if an IOException is encountered.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws EOFException
      * @see {@link ContactsDB#updateDb(ArrayList)}
      */
-    private CaResult updateDb(){
-        try{
-            db = (ArrayList<Contact>) in.readObject(); //this is fine.
-            return CaResult.CARESULT_SUCESS;
-            
-        } catch (ClassNotFoundException | InvalidClassException clsE) {
-            System.out.println("Class Error.");
-            System.out.println(clsE.getMessage());
-            return CaResult.CARESULT_CLASS_MISMATCH_ERROR;
-        } catch (StreamCorruptedException | InvalidObjectException objE){
-            System.out.println("Stream Error.");
-            System.out.println(objE.getMessage());
-            return CaResult.CARESULT_DESERIALIZATION_ERROR;
-        } catch (IOException ioe){
-            System.out.println("IO Error.");
-            System.out.println(ioe.getMessage());
-            return CaResult.CARESULT_FILE_ERROR;
-        } catch (ClassCastException cE){
-            System.out.println("..guess I need a new file handling system");
-            System.out.println(cE.getMessage());
-            return CaResult.CARESULT_CLASS_MISMATCH_ERROR;
-        }
+    private CaResult updateDb() throws ClassNotFoundException, IOException{
+        
+        try {
+            db = (ArrayList<Contact>) in.readObject();
+        } catch (EOFException e) {
+           System.out.println("File Empty");
+        } //this is fine.
+        return CaResult.CARESULT_SUCESS;
 
     }
      
@@ -100,7 +102,7 @@ public class ContactsDB {
      */
     private CaResult Save(){
         try {
-            out = new ObjectOutputStream(new FileOutputStream(filename));
+            out = new ObjectOutputStream(new FileOutputStream(filename, false));
             out.writeObject(db);
             out.flush();
             out.close();

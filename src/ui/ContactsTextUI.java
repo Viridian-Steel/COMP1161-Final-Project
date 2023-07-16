@@ -106,15 +106,16 @@ public class ContactsTextUI {
                 System.out.println(heading);
                 System.out.print("Enter the First Name: ");
                 String fname = input.nextLine();
-                System.out.println("Enter the Last Name: ");
+                System.out.print("Enter the Last Name: ");
                 String lname = input.nextLine();
-                //System.out.print("Enter the Gender: ");
-                // gender = input.nextLine();
+                System.out.print("Enter the Gender: ");
+                Gender gender = Gender.toGender(input.nextLine());
                 System.out.print("Enter the Date of Birth: ");
                 Long dob = input.nextLong();
+                input.nextLine(); // weirdness from inputs
                 System.out.print("Enter the Alias: ");
                 String alias = input.nextLine();
-                //app.addContact
+                app.addContact(fname, lname, gender, dob, alias);
                 System.out.println();
                 System.out.print("New Contact registered. Press any key to continue or 'n' to go back: ");
                 String choice = input.nextLine();

@@ -13,12 +13,6 @@ public enum CaResult {
     CARESULT_SUCESS,
 
     /**
-     * Used for general error
-     * @deprecated Please use a specific error code
-     */
-    CARESULT_GENERAL_ERROR,
-
-    /**
      * Indicates that An Error has Occured in File Handling
      */
     CARESULT_FILE_ERROR,

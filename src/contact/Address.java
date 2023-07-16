@@ -6,7 +6,7 @@
 package contact;
 import java.util.ArrayList;
 
-public class Address{
+public class Address implements java.io.Serializable{
 
     // attribute of the address class
     private String addressLine;
