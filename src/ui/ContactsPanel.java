@@ -70,13 +70,13 @@ public ContactsPanel(){
         pnlCommand.setBackground(Color.white);
         pnlCommand.setLayout(new BoxLayout(pnlCommand,BoxLayout.X_AXIS));
 
-        pnlCommand.add(cmdCreate);
-        pnlCommand.add(cmdView);
-        pnlCommand.add(cmdEdit);
-        pnlCommand.add(cmdDelete);
-        pnlCommand.add(cmdSort);
-        pnlCommand.add(Box.createRigidArea(new Dimension(150, 0)));
-
+      cmdCreate = new JButton("Create Contact");
+      cmdView = new JButton("View Contact");
+      cmdEdit = new JButton("Edit Contact");
+      cmdDelete = new JButton("Delete Contact");
+      cmdSort = new JButton("Sort Contact");
+      
+      
 
         pnlCommand.add(Box.createRigidArea(new Dimension(104,0)));
         pnlCommand.add(cmdCreate);
