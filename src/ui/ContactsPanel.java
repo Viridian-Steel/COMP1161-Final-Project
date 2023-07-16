@@ -60,16 +60,15 @@ public class ContactsPanel extends JPanel{
 public ContactsPanel(){
         setLayout(new BorderLayout());
 
-        //test
-        cmdSort = new JButton();
-        pnlCommand = new JPanel();
-
         pnlDisplay = new JPanel();
         pnlDisplay.setBackground(Color.white);
         pnlDisplay.setLayout(new BoxLayout(pnlDisplay, BoxLayout.Y_AXIS));
         pnlDisplay.add(Box.createRigidArea(new Dimension(50, 200)));
         
-        pnlCommand=new JPanel();
+
+        pnlCommand = new JPanel();
+        pnlCommand.setBackground(Color.white);
+        pnlCommand.setLayout(new BoxLayout(pnlCommand,BoxLayout.X_AXIS));
 
         pnlCommand.add(cmdCreate);
         pnlCommand.add(cmdView);
@@ -78,6 +77,20 @@ public ContactsPanel(){
         pnlCommand.add(cmdSort);
         pnlCommand.add(Box.createRigidArea(new Dimension(150, 0)));
 
+
+        pnlCommand.add(Box.createRigidArea(new Dimension(104,0)));
+        pnlCommand.add(cmdCreate);
+        pnlCommand.add(Box.createHorizontalGlue());
+        pnlCommand.add(cmdView);
+        pnlCommand.add(Box.createHorizontalGlue());
+        pnlCommand.add(cmdEdit);
+        pnlCommand.add(Box.createHorizontalGlue());
+        pnlCommand.add(cmdDelete);
+        pnlCommand.add(Box.createHorizontalGlue());
+        pnlCommand.add(cmdSort);
+        pnlCommand.add(Box.createRigidArea(new Dimension(150,0)));
+
+        
 
 
       cmdCreate.setBackground(Color.pink);
