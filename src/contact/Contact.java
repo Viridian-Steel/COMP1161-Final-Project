@@ -209,6 +209,6 @@ public class Contact extends Person implements Comparable<Contact> {
      * @param other The object that will be compared to
      */
     public int compareTo(Contact other){
-        return 0;
+        return other.getName().compareTo(this.getName());
     }
 }
