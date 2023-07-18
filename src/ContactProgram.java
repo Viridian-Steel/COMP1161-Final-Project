@@ -35,7 +35,7 @@ public class ContactProgram {
                     continue;
                 case "G":
                 case "g":
-                    gui.main(args);
+                    gui.go(app, args); // changed to go instead 
                     continue;
             }
             if (selection.equals("q")) {

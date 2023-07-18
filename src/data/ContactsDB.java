@@ -84,13 +84,16 @@ public class ContactsDB {
      * @throws EOFException
      * @see {@link ContactsDB#updateDb(ArrayList)}
      */
+    @SuppressWarnings("unchecked") //I didn't know that was a thing until 5 seconds ago
     private CaResult updateDb() throws ClassNotFoundException, IOException{
         
         try {
             db = (ArrayList<Contact>) in.readObject();
         } catch (EOFException e) {
            System.out.println("File Empty");
-        } //this is fine.
+        } catch(ClassCastException ccE){
+            System.out.println("Cannot read data form file. " + filename + " may be corrupted.");
+        }
         return CaResult.CARESULT_SUCESS;
 
     }

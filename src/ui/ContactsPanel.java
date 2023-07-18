@@ -4,17 +4,11 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Scanner;
@@ -26,6 +20,8 @@ import javax.swing.table.DefaultTableModel;
 
 import contact.Person;
 import data.ContactsDB;
+import app.ContactsApp;
+
 
 import java.util.Comparator;
 import java.util.Collections;
@@ -57,8 +53,14 @@ public class ContactsPanel extends JPanel{
     private DefaultTableModel model;
     //private int age;
 
-public ContactsPanel(){
+    private ContactsApp app;
+    
+
+public ContactsPanel(ContactsApp app){
+
+        this.app = app;
         setLayout(new BorderLayout());
+        //thisForm=this;
 
         pnlDisplay = new JPanel();
         pnlDisplay.setBackground(Color.white);
@@ -69,6 +71,17 @@ public ContactsPanel(){
         pnlCommand = new JPanel();
         pnlCommand.setBackground(Color.white);
         pnlCommand.setLayout(new BoxLayout(pnlCommand,BoxLayout.X_AXIS));
+         
+        //contact_list=ShowContacts("Contacts.dat");
+        //String[] columnNames={"First Name","LastName","Gender","Date of Birth"};
+        //model=new DefaultTableModel(columnNames,0);
+        //table=new JTable(model);
+        //showTable(contact_list);
+        //table.setPreferredScrollableViewportSize(new Dimension(500,contact_list.size()*15 +50));
+        //table.setFillsViewportHeight(true);
+        //table.setBackground(Color.white);
+
+        //scrollPane = new JScrollPane(table);
 
         cmdCreate = new JButton("Create Contact");
         cmdView = new JButton("View Contact");
@@ -93,11 +106,11 @@ public ContactsPanel(){
         
 
 
-      cmdCreate.setBackground(Color.pink);
-      cmdView.setBackground(Color.pink); 
-      cmdEdit.setBackground(Color.CYAN);
-      cmdDelete.setBackground(Color.pink);
-      cmdSort.setBackground(Color.BLUE);
+        cmdCreate.setBackground(Color.pink);
+        cmdView.setBackground(Color.pink); 
+        cmdEdit.setBackground(Color.CYAN);
+        cmdDelete.setBackground(Color.pink);
+        cmdSort.setBackground(Color.BLUE);
           
 
         cmdCreate.addActionListener(new CreateButtonListener());
@@ -163,6 +176,7 @@ public ContactsPanel(){
 
    private class CreateButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
+        ContactsEntry contactsEntry = new ContactsEntry(app);
     }
 }
   private class ViewButtonListener implements ActionListener {

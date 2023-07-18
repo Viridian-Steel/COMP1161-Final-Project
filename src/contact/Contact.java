@@ -205,7 +205,7 @@ public class Contact extends Person implements Comparable<Contact> {
     }
 
     /**
-     * // TODO: implement this method with the correct comparison replacing the 0
+     * 
      * @param other The object that will be compared to
      */
     public int compareTo(Contact other){

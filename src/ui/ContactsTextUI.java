@@ -127,17 +127,147 @@ public class ContactsTextUI {
             }
         }
     }
-    private void searchByEntryNo(){}
-    private void updateContactLastName(){}
-    private void updateContactAlias(){}
-    private void updateContactAddress(){}
-    private void addContactTelNo(){}
-    private void deleteContactTelNo(){}
-    private void addContactEmailAddress(){}
-    private void deleteContactEmailAddress(){}
-    private void viewContactsbyEntryNo(){}
-    private void viewContactsbyEntryName(){}
-    private void deleteContactByEntryNo(){}
-    private void deleteContactbyEmail(){}
+    private void searchByEntryNo(){
+        Scanner input = new Scanner(System.in);
+        try {
+            System.out.println("Please enter entry number to retrieve");
+            int entryNum = Integer.parseInt(input.nextLine());
+            Contact contact = app.searchById(entryNum);
+            if (contact == null) {
+                System.out.println("Contact is not found.");
+
+            }
+            System.out.println(contact);
+            } catch (Exception e) {
+                //TODO: handle exception 
+                System.out.println("Something went wrong");
+            }
+            input.close();
+
+    }
+    
+    private void updateContactLastName(){
+        Scanner input = new Scanner(System.in);
+        try {
+
+            viewContactsbyEntryNo();
+            System.out.println("Please select the contact to change by enetring the ID number");
+            int entryNum = Integer.parseInt(input.nextLine());
+            System.out.println("Please enter new last name");
+            String lastName = input.nextLine();
+            app.changeLastName(lastName, entryNum);
+        } catch (Exception e) {
+             System.out.println("Something went wrong");
+        }
+        
+    }
+    private void updateContactAlias(){
+        Scanner input = new Scanner(System.in);
+        try {
+            viewContactsbyEntryNo();
+             System.out.println("Please select the contact to change by entering the ID number");
+             int entryNum = Integer.parseInt(input.nextLine());
+             System.out.println("Please enter new alias");
+             String alias = input.nextLine();
+             app.changeAlias(alias, entryNum);
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
+
+    }
+    private void updateContactAddress(){
+        Scanner input = new Scanner(System.in);
+        try {
+            viewContactsbyEntryNo();
+            System.out.println("Please select the contact to change by entering the ID number");
+            int entryNum = Integer.parseInt(input.nextLine());
+            System.out.println("Enter address line 1");
+            String addressLine1 = input.nextLine();
+            System.out.println("Enter town");
+            String addressTown = input.nextLine();
+            System.out.println("Enter country");
+            String addressCountry = input.nextLine();
+            String address = addressLine1 + ";" + addressTown + ";;;" + addressCountry;
+            app.changeAddress(address, entryNum);
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
+    }
+    private void addContactTelNo(int index){
+        Scanner input = new Scanner(System.in);
+        try {
+            System.out.println("Please select the contact to add phone number by entering the ID number");
+            int entryNum = Integer.parseInt(input.nextLine());
+            System.out.println("Please enter the number you want to add");
+            Long number = Long.parseLong(input.nextLine());
+            System.out.println("Enter type of phone (H = home, W = Work, M = Mobile)");
+            char type = input.nextLine().charAt(index);
+            app.changePhone(type, number, entryNum);
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
+    }
+    private void deleteContactTelNo(){
+         Scanner input = new Scanner(System.in);
+        try {
+            viewContactsbyEntryNo();
+             System.out.println("Please select the contact to delete phone number by entering the ID number");
+            int entryNum = Integer.parseInt(input.nextLine());
+            System.out.println("Please enter the number you want to delete.");
+            Long number = Long.parseLong(input.nextLine());
+            System.out.println("Enetr type of phone (H = Home, W = Work, M = Mobile)");
+            char type = input.nextLine().charAt(index:0);
+            app.deleteTel(type, number, entryNum);
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }       
+    }
+    private void addContactEmailAddress(){
+         Scanner input = new Scanner(System.in);
+         try {
+            viewContactsbyEntryNo();
+            System.out.println("Please select the contact to add a email by entering the ID number");
+            int entryNum = Integer.parseInt(input.nextLine());
+            System.out.println("Please enter the email you want to add");
+            String email = input.nextLine();            
+         } catch (Exception e) {
+            System.out.println("Something went wrong");
+         }
+    }
+    private void deleteContactEmailAddress(){
+        Scanner input = new Scanner(System.in);
+        try {       
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
+    }
+    private void viewContactsbyEntryNo(){
+        System.out.println(app.returnInfoByID());
+    }
+    private void viewContactsbyEntryName(){
+         System.out.println(app.returnInfoByName());
+    }
+    private void deleteContactByEntryNo(){
+         Scanner input = new Scanner(System.in);
+         try {
+            viewContactsbyEntryNo();
+             System.out.println("Please select the contact to delete by entering the email");
+             String email = input.nextLine();
+             app.removeContact(email);
+         } catch (Exception e) {
+            System.out.println("Something went wrong");
+         }
+    }
+    private void deleteContactbyEmail(){
+        Scanner input = new Scanner(System.in);
+        try{
+            viewContactsbyEntryNo();
+            System.out.println("Please select the contact to delete by entering the email");
+            String email = input.nextLine();
+            app.removeContact(email);
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
+    }
 
 }

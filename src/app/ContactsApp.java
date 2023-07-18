@@ -112,13 +112,11 @@ public class ContactsApp {
      * @param entryNum the entry Id number of the contact
      */
     public void changePhone(char type, long telephone,int entryNum ){        
-        boolean found = false;
 	    String val = Long.toString(telephone);
         
         try {
             for(String p : contact_list.get(entryNum).getPhoneList()){
                 if(p.equals(val)){
-                    found = true;
                     return;
                 }
             }
@@ -140,12 +138,11 @@ public class ContactsApp {
          * then through the phone list that stores a set of phone numbers. If found the phone is 
          * equivalent to the val variable, the found should be set to true. 
          * If not found, delete the phone number from the contact */ //this makes no sense
-	    boolean found = false;
+	    
 	    String val = Long.toString(telephone);
 	    try {
             for(String p : contact_list.get(entryNum).getPhoneList()){
                 if(p.equals(val)){
-                    found = true;
                     contact_list.get(entryNum).deletePhone(telephone);
                     return;
                 }
@@ -164,12 +161,11 @@ public class ContactsApp {
         /* implement this function to go through the contact list, verifying the entry number and 
         * then through the email list. If email matches the email in the email list, the found 
         * should be set to true. If not found,add the email address to the contact */
-		boolean found = false;
+		
         
         try {
             for (String e : contact_list.get(entryNum).getEmailList()){
                 if(e.equals(email)){
-                    found = true;
                     return;
                 }
             }
@@ -184,11 +180,10 @@ public class ContactsApp {
         /* implement this function to go through the contact list, verifying the entry number and 
          * then through the email list. If email matches the email in the email list, the found 
          * should be set to true. If not found, delete the email address from the contact */
-		boolean found = false;
+		
         try {
             for (String e : contact_list.get(entryNum).getEmailList()){
                 if(e.equals(email)){
-                    found = true;
                     contact_list.get(entryNum).deleteEmail(email);
                     return;
                 }
