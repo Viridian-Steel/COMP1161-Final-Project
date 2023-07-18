@@ -10,7 +10,7 @@ public class ContactsGUI {
 
     public void go(ContactsApp app, String[] args) {
         ContactsGUI.app = app; // hopefully this isn't some cyclic dependency bs
-        frame.setVisible(b:true);
+        frame.setVisible(true);
         main(args);
     }
     public static void main(String[] args) {
