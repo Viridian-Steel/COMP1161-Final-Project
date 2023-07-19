@@ -7,10 +7,7 @@ package data;
 import java.io.*;
 import java.util.ArrayList;
 
-
-
 import contact.*;
-import errHandling.*;
 
 /**
  * Saves and Loads the Contact Database from file.
@@ -45,8 +42,10 @@ public class ContactsDB {
             in = new ObjectInputStream(new FileInputStream(filename));
             updateDb();
             in.close();
-        } catch (IOException | NullPointerException ioe) {
-            System.out.println("Error while reading File");
+        } catch(EOFException e){
+            System.out.println("Error while reading File: File is empty ");
+        }catch (IOException | NullPointerException ioe) {
+            System.out.println("Error while reading File. " + ioe.getMessage());
             ioe.printStackTrace();
         } catch (SecurityException sec_e){
             System.out.println("Object presents a security threat");
@@ -68,25 +67,26 @@ public class ContactsDB {
     /**
      * Updates the Database and then Saves
      * @param db The Up-to-Date ArrayList of Contacts
-     * @return {@link CaResult#CARESULT_SUCESS} if sucessful, {@link CaResult#CARESULT_SERIALIZATION_ERROR} or {@link CaResult#CARESULT_FILE_ERROR} if unsucessful
+     * 
      */
-    public CaResult updateDb(ArrayList<Contact> db) {
+    public void updateDb(ArrayList<Contact> db) {
         this.db = db;
-        return Save();
+        try {
+            Save();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     /**
      * Populates the Database by pulling from the SaveFile.
-     * 
-     * @return {@link CaResult#CARESULT_SUCESS} if sucessful. 
      * @throws IOException
      * @throws ClassNotFoundException
      * @throws EOFException
-     * @see {@link ContactsDB#updateDb(ArrayList)}
      */
     @SuppressWarnings("unchecked") //I didn't know that was a thing until 5 seconds ago
-    private CaResult updateDb() throws ClassNotFoundException, IOException{
-        
+    private void updateDb() throws ClassNotFoundException, IOException{
         try {
             db = (ArrayList<Contact>) in.readObject();
         } catch (EOFException e) {
@@ -94,47 +94,28 @@ public class ContactsDB {
         } catch(ClassCastException ccE){
             System.out.println("Cannot read data form file. " + filename + " may be corrupted.");
         }
-        return CaResult.CARESULT_SUCESS;
-
     }
      
     /**
      * Saves the currently loaded Datbase into a file
-     * @return {@link CaResult#CARESULT_SUCESS} if sucessful, {@link CaResult#CARESULT_SERIALIZATION_ERROR} or {@link CaResult#CARESULT_FILE_ERROR} if unsucessful
+     * @throws IOException
+     * @throws FileNotFoundException
      * 
      */
-    private CaResult Save(){
-        try {
-            out = new ObjectOutputStream(new FileOutputStream(filename, false));
-            out.writeObject(db);
-            out.flush();
-            out.close();
-            return CaResult.CARESULT_SUCESS;
-        } catch (InvalidClassException | NotSerializableException icE) {
-            System.out.println("There was a error serializing objets");
-            System.out.println(icE.getMessage());
-            return CaResult.CARESULT_SERIALIZATION_ERROR;
-        } catch(IOException ioE){
-            System.out.println("There was a problem saving the file");
-            System.out.println(ioE.getMessage());
-            return  CaResult.CARESULT_FILE_ERROR;
-        }
+    private void Save() throws FileNotFoundException, IOException{
+        out = new ObjectOutputStream(new FileOutputStream(filename, false));
+        out.writeObject(db);
+        out.flush();
+        out.close();
 
     }
 
     /**
      * Closes the file
-     * @return {@link CaResult#CARESULT_SUCESS} if sucessful, {@link CaResult#CARESULT_FILE_ERROR} if unsucessful
+     * @throws IOException
      */
-    public CaResult close () {
-        try{
-            out.close();
-            return CaResult.CARESULT_SUCESS;
-        } catch (IOException | NullPointerException io) {
-            System.out.println("Problem closing the file.");
-            System.out.println(io.getMessage());
-            return CaResult.CARESULT_FILE_ERROR;
-        }
+    public void close () throws IOException {
+        out.close();
     }
 
     

@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import app.ContactsApp;
-import contact.Gender;
+import contact.*;
 
 public class ContactsTextUI {
     private ContactsApp app;
@@ -97,7 +97,7 @@ public class ContactsTextUI {
         }
     }
 
-    /* stub methods to be implemented */
+    @SuppressWarnings("resource")
     private void createContactMenu(){
         String heading = "\nNEW CONTACT MENU\n\n";
         while (true) {
@@ -127,25 +127,25 @@ public class ContactsTextUI {
             }
         }
     }
+
     private void searchByEntryNo(){
         Scanner input = new Scanner(System.in);
         try {
             System.out.println("Please enter entry number to retrieve");
             int entryNum = Integer.parseInt(input.nextLine());
-            Contact contact = app.searchById(entryNum);
+            Contact contact = app.searchByEntryNum(entryNum);
+
             if (contact == null) {
                 System.out.println("Contact is not found.");
-
             }
             System.out.println(contact);
-            } catch (Exception e) {
-                //TODO: handle exception 
-                System.out.println("Something went wrong");
+            } catch (NumberFormatException e) { 
+                System.out.println("Input was Not a Number");
             }
             input.close();
 
     }
-    
+    @SuppressWarnings("resource")
     private void updateContactLastName(){
         Scanner input = new Scanner(System.in);
         try {
@@ -161,6 +161,7 @@ public class ContactsTextUI {
         }
         
     }
+    @SuppressWarnings("resource")
     private void updateContactAlias(){
         Scanner input = new Scanner(System.in);
         try {
@@ -175,6 +176,7 @@ public class ContactsTextUI {
         }
 
     }
+    @SuppressWarnings("resource")
     private void updateContactAddress(){
         Scanner input = new Scanner(System.in);
         try {
@@ -193,7 +195,8 @@ public class ContactsTextUI {
             System.out.println("Something went wrong");
         }
     }
-    private void addContactTelNo(int index){
+    @SuppressWarnings("resource")
+    private void addContactTelNo(){
         Scanner input = new Scanner(System.in);
         try {
             System.out.println("Please select the contact to add phone number by entering the ID number");
@@ -201,12 +204,13 @@ public class ContactsTextUI {
             System.out.println("Please enter the number you want to add");
             Long number = Long.parseLong(input.nextLine());
             System.out.println("Enter type of phone (H = home, W = Work, M = Mobile)");
-            char type = input.nextLine().charAt(index);
+            char type = input.nextLine().charAt(0);
             app.changePhone(type, number, entryNum);
         } catch (Exception e) {
             System.out.println("Something went wrong");
         }
     }
+    @SuppressWarnings("resource")
     private void deleteContactTelNo(){
          Scanner input = new Scanner(System.in);
         try {
@@ -216,24 +220,49 @@ public class ContactsTextUI {
             System.out.println("Please enter the number you want to delete.");
             Long number = Long.parseLong(input.nextLine());
             System.out.println("Enetr type of phone (H = Home, W = Work, M = Mobile)");
-            char type = input.nextLine().charAt(index:0);
+            char type = input.nextLine().charAt(0);
             app.deleteTel(type, number, entryNum);
         } catch (Exception e) {
             System.out.println("Something went wrong");
         }       
     }
+    @SuppressWarnings("resource")
     private void addContactEmailAddress(){
          Scanner input = new Scanner(System.in);
+         int entryNum = 0;
          try {
-            viewContactsbyEntryNo();
+            viewContactsbyEntryNo(); // why is this here? @neeks12
             System.out.println("Please select the contact to add a email by entering the ID number");
-            int entryNum = Integer.parseInt(input.nextLine());
+            while(true){
+                try {
+                    entryNum = Integer.parseInt(input.nextLine());
+                    if(app.searchByEntryNum(entryNum) == null){
+                        System.out.println("Id Not found.");
+                        System.out.print("would you like to re-enter the ID? Enter y for Yes, n for No: ");
+                        String ans = input.nextLine();
+                        if(ans.equals("y")){ continue; }
+                    } else { break; }
+                    
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Input was not a number");
+                }
+
+            }
+
+                
+            // See? No longer unreachable
             System.out.println("Please enter the email you want to add");
-            String email = input.nextLine();            
+            String email = input.nextLine();
+
+            app.searchByEntryNum(entryNum).addEmail(email);
+            
+            
+
          } catch (Exception e) {
             System.out.println("Something went wrong");
          }
     }
+    @SuppressWarnings("resource")
     private void deleteContactEmailAddress(){
         Scanner input = new Scanner(System.in);
         try {       
@@ -247,6 +276,8 @@ public class ContactsTextUI {
     private void viewContactsbyEntryName(){
          System.out.println(app.returnInfoByName());
     }
+
+    @SuppressWarnings("resource")
     private void deleteContactByEntryNo(){
          Scanner input = new Scanner(System.in);
          try {
@@ -258,6 +289,8 @@ public class ContactsTextUI {
             System.out.println("Something went wrong");
          }
     }
+    
+    @SuppressWarnings("resource")
     private void deleteContactbyEmail(){
         Scanner input = new Scanner(System.in);
         try{

@@ -42,6 +42,17 @@ public class ContactsApp {
         data.updateDb(contact_list);
     }
 
+     public void addContact(String fname, String lname, Gender gender, long dob, String aliasName, int entryNum){
+        Contact c = new Contact(fname, lname, gender, dob);
+        c.setAlias(aliasName);
+        contact_list.add(entryNum,c);
+        data.updateDb(contact_list);
+    }
+
+    public ArrayList<Contact> getContacts(){
+        return contact_list;
+    }
+
     /**
      * 
      * @param email
@@ -152,6 +163,15 @@ public class ContactsApp {
         }
 	}
     
+    public Contact searchByEntryNum(int eNum){
+        try {
+            return contact_list.get(eNum);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+
     /**
      * changeEmail method
      * @param email

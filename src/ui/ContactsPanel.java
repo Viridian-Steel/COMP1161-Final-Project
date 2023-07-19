@@ -5,19 +5,22 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SpringLayout.Constraints;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
 import java.io.IOException;
 import javax.swing.table.*;
 import javax.swing.table.DefaultTableModel;
 
+import contact.Contact;
 import contact.Person;
 import data.ContactsDB;
 import app.ContactsApp;
@@ -72,16 +75,26 @@ public ContactsPanel(ContactsApp app){
         pnlCommand.setBackground(Color.white);
         pnlCommand.setLayout(new BoxLayout(pnlCommand,BoxLayout.X_AXIS));
          
-        //contact_list=ShowContacts("Contacts.dat");
-        //String[] columnNames={"First Name","LastName","Gender","Date of Birth"};
-        //model=new DefaultTableModel(columnNames,0);
-        //table=new JTable(model);
-        //showTable(contact_list);
-        //table.setPreferredScrollableViewportSize(new Dimension(500,contact_list.size()*15 +50));
-        //table.setFillsViewportHeight(true);
-        //table.setBackground(Color.white);
+        
+        String[] columnNames={"Name","Gender","Date of Birth", "Address", "Alias","Entry Number"};
+        model=new DefaultTableModel(columnNames, app.getContacts().size());
+        table=new JTable(model);
+        table.setPreferredScrollableViewportSize(new Dimension(500,app.getContacts().size()*15 +50));
+        table.setFillsViewportHeight(true);
+        table.setBackground(Color.white);
 
-        //scrollPane = new JScrollPane(table);
+        for(Contact c: app.getContacts()){
+            ArrayList<String> d = new ArrayList<String>();
+            d.add(c.getName());
+            d.add(c.getGender());
+            d.add(String.valueOf(c.getDOB()));
+            d.add(c.getAddress()[0]); //I'm tired. Feel free to change to something better  //ok ok
+            d.add(c.getAlias());
+            model.addRow(d.toArray());
+        }
+        table.setModel(model); //should be fine
+
+        scrollPane = new JScrollPane(table);
 
         cmdCreate = new JButton("Create Contact");
         cmdView = new JButton("View Contact");
@@ -147,9 +160,11 @@ public ContactsPanel(ContactsApp app){
         panel5.setPreferredSize(new Dimension(150, 150));
 
         // Initialize label9
-        label9 = new JLabel("Data will be displayed here");
-        panel5.add(label9);
-        panel3.add(label9);
+        label9 = new JLabel("Client Data");
+        panel5.add(label9, BorderLayout.NORTH);
+        panel3.add(label9, BorderLayout.NORTH);
+
+        panel3.add(scrollPane, BorderLayout.CENTER);
 
         add(panel3, BorderLayout.CENTER);
         add(panel4, BorderLayout.NORTH);
@@ -160,7 +175,7 @@ public ContactsPanel(ContactsApp app){
        
        
         
-       // updateDisplayData();
+        
     }
 
     
@@ -177,18 +192,35 @@ public ContactsPanel(ContactsApp app){
    private class CreateButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         ContactsEntry contactsEntry = new ContactsEntry(app);
+        model.fireTableDataChanged();
     }
 }
   private class ViewButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
+        
     }
 }
  private class EditButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter Entry id");
+        int entryNum=input.nextInt();
+        app.searchByEntryNum(entryNum);
+
     }
 }
  private class DeleteButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
+        int[] selectedRows = table.getSelectedRows();
+        for(int i = selectedRows.length-1; i >= 0; i--){
+            int row =selectedRows[i];
+            int x =(int) model.getValueAt(row,0);
+            //contact_list.deleteContact(x);
+            model.removeRow(row);
+
+            //JOptionPane.showMessageDialog(ContactsEntry,"Contact Deleted Successfully");
+        }
     }
 } private class SortButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
