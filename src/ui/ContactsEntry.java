@@ -48,16 +48,7 @@ public class ContactsEntry extends JFrame {
         txtLastName = new JTextField(20);
         pnlDisplay.add(txtLastName);
         
-        pnlDisplay.add(new JLabel("Gender:"));
-        maleRButton =new JRadioButton("Male");
-        femaleRButton =new JRadioButton("Female");
-        pnlDisplay.add(maleRButton);
-        pnlDisplay.add(femaleRButton);
-
-        maleRButton.addActionListener(new MaleRButtonListener());
-        femaleRButton.addActionListener(new FemaleRButtonListener());
-        
-        
+    
         pnlDisplay.add(new JLabel("Address:"));
         txtAddress = new JTextField(20);
         pnlDisplay.add(txtAddress);
@@ -69,6 +60,12 @@ public class ContactsEntry extends JFrame {
         pnlDisplay.add(new JLabel("Date of Birth:"));
         txtdob = new JTextField(20);
         pnlDisplay.add(txtdob);
+
+        pnlDisplay.add(new JLabel("Gender:"));
+        maleRButton =new JRadioButton("Male");
+        femaleRButton =new JRadioButton("Female");
+        pnlDisplay.add(maleRButton);
+        pnlDisplay.add(femaleRButton);
         
         pnlDisplay.setLayout(new GridLayout(3,4));
                 
@@ -87,6 +84,8 @@ public class ContactsEntry extends JFrame {
         //this.ContactProgram=contactProgram;
         cmdClose.addActionListener(new CloseButtonListener());
         cmdSave.addActionListener(new SaveButtonListener());
+        maleRButton.addActionListener(new MaleRButtonListener());
+        femaleRButton.addActionListener(new FemaleRButtonListener());
     }
 
     public ContactsEntry(Contact contact, int entryNum)
@@ -213,7 +212,7 @@ public class ContactsEntry extends JFrame {
            if(maleRButton.isSelected()) {g = Gender.MALE;}
            if(femaleRButton.isSelected()) {g = Gender.FEMALE;}
            try{
-               app.addContact(txtFirstName.getText(),txtLastName.getText(), g, Long.parseLong(txtdob.getText()), txtAlias.getText());
+               app.addContact(txtFirstName.getText(),txtLastName.getText(), g, Long.parseLong(txtdob.getText()), txtAddress.getText(), txtAlias.getText());
            }catch(NumberFormatException nfE){
              JOptionPane.showMessageDialog(null, "Please enter a proper date", "Error", JOptionPane.INFORMATION_MESSAGE);
                 return;

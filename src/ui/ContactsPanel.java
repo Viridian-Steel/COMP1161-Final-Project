@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 import contact.Contact;
 import contact.Person;
+import contact.NameComp;
 import data.ContactsDB;
 import app.ContactsApp;
 
@@ -48,15 +49,15 @@ public class ContactsPanel extends JPanel{
      private JPanel      panel5;
      private JLabel      label;
      JLabel label9;
-    //private ArrayList<Con> plist;
     private ContactsPanel thisForm;
     private  JScrollPane scrollPane;
 
     private JTable table;
     private DefaultTableModel model;
-    //private int age;
+   
 
     private ContactsApp app;
+    boolean sortbyEntryNum=false;
     
 
 public ContactsPanel(ContactsApp app){
@@ -83,14 +84,18 @@ public ContactsPanel(ContactsApp app){
         table.setFillsViewportHeight(true);
         table.setBackground(Color.white);
 
-        for(Contact c: app.getContacts()){
-            ArrayList<String> d = new ArrayList<String>();
-            d.add(c.getName());
-            d.add(c.getGender());
-            d.add(String.valueOf(c.getDOB()));
-            d.add(c.getAddress()[0]); //I'm tired. Feel free to change to something better  //ok ok
-            d.add(c.getAlias());
-            model.addRow(d.toArray());
+
+        if (!app.getContacts().isEmpty()) {
+            for(Contact c : app.getContacts()){
+                ArrayList<String> d = new ArrayList<String>();
+                d.add(c.getName());
+                d.add(c.getGender());
+                d.add(String.valueOf(c.getDOB()));
+                d.add(c.getAddress()[0]); //I'm tired. Feel free to change to something better  //ok ok
+                d.add(c.getAlias());
+                d.add(String.valueOf(c.getEntryNo()));
+                model.addRow(d.toArray());
+            }
         }
         table.setModel(model); //should be fine
 
@@ -123,7 +128,7 @@ public ContactsPanel(ContactsApp app){
         cmdView.setBackground(Color.pink); 
         cmdEdit.setBackground(Color.CYAN);
         cmdDelete.setBackground(Color.pink);
-        cmdSort.setBackground(Color.BLUE);
+        cmdSort.setBackground(Color.CYAN);
           
 
         cmdCreate.addActionListener(new CreateButtonListener());
@@ -179,20 +184,24 @@ public ContactsPanel(ContactsApp app){
     }
 
     
-    /*private void updateDisplayData() {
-        StringBuilder sb = new StringBuilder();
-        for (Patient patient : patientManager.getListOfPatients()) {
-            sb.append(patient.getName()).append(" ").append(patient.getTemperature()).append("                        " );
-        }
-
-        // Assuming label9 is the label that displays patient information
-        label9.setText(sb.toString());
-    }/* */
 
    private class CreateButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         ContactsEntry contactsEntry = new ContactsEntry(app);
+        
+        
+        for(Contact c: app.getContacts()){
+                ArrayList<String> d = new ArrayList<String>();
+                d.add(c.getName());
+                d.add(c.getGender());
+                d.add(String.valueOf(c.getDOB()));
+                d.add(c.getAddress()[0]); //I'm tired. Feel free to change to something better  //ok ok
+                d.add(c.getAlias());
+                model.addRow(d.toArray());
+            }
+        
         model.fireTableDataChanged();
+        table.setModel(model); //should be fine
     }
 }
   private class ViewButtonListener implements ActionListener {
@@ -202,11 +211,13 @@ public ContactsPanel(ContactsApp app){
 }
  private class EditButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("Enter Entry id");
-        int entryNum=input.nextInt();
-        app.searchByEntryNum(entryNum);
+        
+        String input= JOptionPane.showInputDialog(cmdCreate, "Enter Client Id");
+         
+        int entryNum=Integer.parseInt(input);
+        if(app.searchByEntryNum(entryNum) != null){
+            ContactsEntry c = new ContactsEntry(app.searchByEntryNum(entryNum), entryNum);
+        }
 
     }
 }
@@ -215,17 +226,35 @@ public ContactsPanel(ContactsApp app){
         int[] selectedRows = table.getSelectedRows();
         for(int i = selectedRows.length-1; i >= 0; i--){
             int row =selectedRows[i];
-            int x =(int) model.getValueAt(row,0);
-            //contact_list.deleteContact(x);
+            int x = Integer.parseInt( (String) model.getValueAt(row,5)); // Cannot invoke "java.lang.Integer.intValue()" because the return value of "javax.swing.table.DefaultTableModel.getValueAt(int, int)" is null
+            app.removeContact(x);
             model.removeRow(row);
-
-            //JOptionPane.showMessageDialog(ContactsEntry,"Contact Deleted Successfully");
+             //ContactsEntry contactsEntry = new ContactsEntry(app.contact,entryNum);
+            JOptionPane.showMessageDialog(null,"Contact Deleted Successfully");
         }
     }
-} private class SortButtonListener implements ActionListener {
+} 
+private class SortButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
+
+        sortbyEntryNum = !sortbyEntryNum;
+        
+        if (sortbyEntryNum) {
+            sortbyEntryNum(); // Sort by entry Number
+            cmdSort.setText("Sort by Entry Number");
+        } else {
+            sortbyName(); // Sort by name
+            cmdSort.setText("Sort by Name");
+        }
     }
 }
 
+    public void sortbyName(){
+      Collections.sort(app.getContacts(), new NameComp());
+    }
+    public void sortbyEntryNum(){
+      Collections.sort(app.getContacts());
+}
+   
    
 }

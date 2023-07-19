@@ -1,6 +1,6 @@
 /**
  * ContactsApp Class (This class will implement the functionalities of section A.)
- * @author
+ * @author 
  * @version
  */
 
@@ -35,9 +35,10 @@ public class ContactsApp {
      * @param dob
      * @param aliasName
      */
-    public void addContact(String fname, String lname, Gender gender, long dob, String aliasName){
+    public void addContact(String fname, String lname, Gender gender, long dob, String address, String aliasName){
         Contact c = new Contact(fname, lname, gender, dob);
         c.setAlias(aliasName);
+        c.setAddress(address);
         contact_list.add(c);
         data.updateDb(contact_list);
     }
@@ -219,6 +220,7 @@ public class ContactsApp {
     public void removeContact(int entryNum){
         try{
             contact_list.remove(entryNum);
+            data.updateDb(contact_list);
         }catch (IndexOutOfBoundsException e){
             System.out.println("Index not found");
         }
@@ -283,4 +285,6 @@ public class ContactsApp {
         }
 	    return all;
 	}
+
+    
 }

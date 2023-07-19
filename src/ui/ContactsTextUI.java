@@ -67,7 +67,7 @@ public class ContactsTextUI {
                     addContactEmailAddress();
                     break;
                 case "i":
-                    deleteContactEmailAddress();
+                    //deleteContactEmailAddress();
                     break;
                 case "j":
                     viewContactsbyEntryNo();
@@ -115,7 +115,9 @@ public class ContactsTextUI {
                 input.nextLine(); // weirdness from inputs
                 System.out.print("Enter the Alias: ");
                 String alias = input.nextLine();
-                app.addContact(fname, lname, gender, dob, alias);
+                System.out.print("Enter the Address: ");
+                String address = input.nextLine();
+                app.addContact(fname, lname, gender, dob, address, alias);
                 System.out.println();
                 System.out.print("New Contact registered. Press any key to continue or 'n' to go back: ");
                 String choice = input.nextLine();
@@ -262,14 +264,14 @@ public class ContactsTextUI {
             System.out.println("Something went wrong");
          }
     }
-    @SuppressWarnings("resource")
-    private void deleteContactEmailAddress(){
-        Scanner input = new Scanner(System.in);
-        try {       
-        } catch (Exception e) {
-            System.out.println("Something went wrong");
-        }
-    }
+    //@SuppressWarnings("resource")
+    //private void deleteContactEmailAddress(){
+        //Scanner input = new Scanner(System.in);
+        //try {       
+        //} catch (Exception e) {
+            //System.out.println("Something went wrong");
+       // }
+    //}
     private void viewContactsbyEntryNo(){
         System.out.println(app.returnInfoByID());
     }

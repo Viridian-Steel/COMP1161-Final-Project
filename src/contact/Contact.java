@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Contact extends Person implements Comparable<Contact> {
     
-    private static int counter=1;
+    private static int counter=0;
     private int entryID;
     private int age;
     private Address address;
@@ -208,7 +208,20 @@ public class Contact extends Person implements Comparable<Contact> {
      * 
      * @param other The object that will be compared to
      */
-    public int compareTo(Contact other){
-        return other.getName().compareTo(this.getName());
+    //public int compareTo(Contact other){
+    //    return other.getName().compareTo(this.getName()); //compare by name
+    //}
+
+    public int compareTo(Contact o){
+        //return this.entryID - o.getEntryNo();
+     if (this.getEntryNo()==o.getEntryNo()){
+        return 0;
+     }
+     else if (this.getEntryNo()>o.getEntryNo()){
+        return 1;
+     }
+     return -1;
+        
     }
-}
+   }
+
