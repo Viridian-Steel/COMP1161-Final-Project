@@ -1,6 +1,6 @@
 /**
  * ContactsApp Class (This class will implement the functionalities of section A.)
- * @author 
+ * @author 620156598, 620154639, 620146910
  * @version
  */
 
@@ -12,12 +12,12 @@ import java.util.*;
 
 public class ContactsApp {
     private ContactsDB data;
-    private ArrayList <Contact> contact_list = new ArrayList <Contact> ();
+    private ArrayList <Contact> contact_list = new ArrayList<Contact>();
     Scanner scan = new Scanner(System.in);
     
     /**
-     * ContactsApp Constructor (Complete this constructor)
-     * @param filename
+     * ContactsApp Constructor 
+     * @param filename the File to be used for data Storage
      * 
      */
     public ContactsApp(String filename){
@@ -29,11 +29,12 @@ public class ContactsApp {
 
     /**
      * Adds a contact to the list, and then saves
-     * @param fname
-     * @param lname
-     * @param gender
-     * @param dob
-     * @param aliasName
+     * @param fname the First name
+     * @param lname the Last name
+     * @param gender the gender
+     * @param dob    the date of birth
+     * @param aliasName the Alias the contact may go by
+     * @param address the Address of the contact
      */
     public void addContact(String fname, String lname, Gender gender, long dob, String address, String aliasName){
         Contact c = new Contact(fname, lname, gender, dob);
@@ -43,6 +44,16 @@ public class ContactsApp {
         data.updateDb(contact_list);
     }
 
+
+    /**
+     * Creates a new {@link Contact}, adds it to an array and then Saves.
+     * @param fname the First Name
+     * @param lname the Last name
+     * @param gender the gender
+     * @param dob    the date of birth
+     * @param aliasName the alias
+     * @param entryNum the entry number
+     */
      public void addContact(String fname, String lname, Gender gender, long dob, String aliasName, int entryNum){
         Contact c = new Contact(fname, lname, gender, dob);
         c.setAlias(aliasName);
@@ -50,14 +61,37 @@ public class ContactsApp {
         data.updateDb(contact_list);
     }
 
+    /**
+     * Adds the specified Contact to the contact List and then saves
+     * @param c the contact to be added
+     */
+    public void addContact(Contact c){
+        contact_list.add(c);
+        data.updateDb(contact_list);
+    }
+
+        /**
+     * Adds the specified Contact to the contact List at the specified location and then saves
+     * @param c the contact to be added
+     * @param entryNum the location that the contact should go to Contact
+     */
+    public void addContact(Contact c, int entryNum){
+        contact_list.add(entryNum, c);
+        data.updateDb(contact_list);
+    }
+
+    public boolean dataChanged(ArrayList<Contact> prevData){
+        return !contact_list.equals(prevData);
+    }
+
     public ArrayList<Contact> getContacts(){
         return contact_list;
     }
 
     /**
-     * 
-     * @param email
-     * @return
+     * Gets the Contact specified by email address. If the address does not exist, retusn "not found"
+     * @param email the Email to be verified
+     * @return the Contact in it's String Format
      */
     public String getEmailNow(String email){
 	    // implement this method return the contact if the emal address is found, else return not found.
@@ -73,9 +107,9 @@ public class ContactsApp {
 	}
 
     /**
-     * changeLastName Method
-     * @param name
-     * @param entryNum
+     * Changes the Last Name of the Contact Specified by entryNum, if the Contact Exists
+     * @param name the New Last name
+     * @param entryNum  the entry Number of the Contact.
      */
     public void changeLastName(String name,int entryNum ){
 
@@ -88,9 +122,9 @@ public class ContactsApp {
 	}
 
     /**
-     * changeAlias Method
-     * @param aliasName
-     * @param entryNum
+     * Changes the Alias of the Contact Specified by entryNum, if the Contact Exists
+     * @param aliasName the new Alias
+     * @param entryNum the entry Number of the Contact
      */
     public void changeAlias(String aliasName, int entryNum){
 	    try{
@@ -105,9 +139,9 @@ public class ContactsApp {
 	}
 
     /**
-     * changeAddress Method
-     * @param address
-     * @param entryNum
+     * Changes the Address of the Contact Specified by entryNum, if the Contact Exists
+     * @param address the new Address 
+     * @param entryNum the entry Number of the Contact
      */
     public void changeAddress(String address, int entryNum){
         try{
@@ -118,9 +152,9 @@ public class ContactsApp {
     }
 
     /**
-     * changePhone method
-     * @param type the phone number type
-     * @param telephone the telephone number of the contact
+     * Changes the Phone Number of the Contact Specified by entryNum, if the Contact Exists
+     * @param type the new phone number type
+     * @param telephone the new telephone number of the contact
      * @param entryNum the entry Id number of the contact
      */
     public void changePhone(char type, long telephone,int entryNum ){        
@@ -140,16 +174,12 @@ public class ContactsApp {
 	}
 
     /**
-     * 
-     * @param type
-     * @param telephone
-     * @param entryNum
+     * Removes the Telephone Number of the Contact Specified by entryNum, if the Contact Exists
+     * @param type the type of the telephone Number to be removed
+     * @param telephone the telephone number to be removed
+     * @param entryNum the entry number of the Contact
      */
     public void deleteTel(char type, long telephone,int entryNum ){
-        /* implement this function to go through the contact list, verifying the entry number and 
-         * then through the phone list that stores a set of phone numbers. If found the phone is 
-         * equivalent to the val variable, the found should be set to true. 
-         * If not found, delete the phone number from the contact */ //this makes no sense
 	    
 	    String val = Long.toString(telephone);
 	    try {
@@ -174,33 +204,25 @@ public class ContactsApp {
 
 
     /**
-     * changeEmail method
-     * @param email
-     * @param entryNum
+     * Changes the Email Address of the Contact Specified by entryNum, if the Contact Exists
+     * @param email the new Email Address
+     * @param entryNum the entry Number of the Contact
      */
-    public void changeEmail(String email,int entryNum ){
-        /* implement this function to go through the contact list, verifying the entry number and 
-        * then through the email list. If email matches the email in the email list, the found 
-        * should be set to true. If not found,add the email address to the contact */
-		
+    public void changeEmail(String email,int entryNum ){		
         
         try {
-            for (String e : contact_list.get(entryNum).getEmailList()){
-                if(e.equals(email)){
-                    return;
-                }
-            }
+            for (String e : contact_list.get(entryNum).getEmailList()){ if(e.equals(email)) { return; } }
             contact_list.get(entryNum).addEmail(email);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Index not found");
-        }
-	    
+        } catch (IndexOutOfBoundsException e) { System.out.println("Index not found"); }
 	}
 
+
+    /**
+     * Removes the Email Address of the Contact Specified by entryNum, if the Contact Exists
+     * @param email the Email Address to be removed
+     * @param entryNum the entry Number of the Contact
+     */
     public void deleteEmail(String email,int entryNum ){
-        /* implement this function to go through the contact list, verifying the entry number and 
-         * then through the email list. If email matches the email in the email list, the found 
-         * should be set to true. If not found, delete the email address from the contact */
 		
         try {
             for (String e : contact_list.get(entryNum).getEmailList()){
@@ -213,8 +235,10 @@ public class ContactsApp {
             System.out.println("Index not found");
         }    
     }
+
+
     /**
-     * removeContact method
+     * Removes the Contact at the Entry Number specified
      * @param entryNum the entry number that will be verified
      */
     public void removeContact(int entryNum){
@@ -227,7 +251,7 @@ public class ContactsApp {
 	}
 	
     /**
-     * removeContact method
+     * Removes the Contact that contains the Email Address specified 
      * @param email the email address that will be verified
      */
 	public void removeContact(String email){
@@ -247,7 +271,7 @@ public class ContactsApp {
 	}
 
     /**
-     * returnInfoByID method
+     * Sorts the Contacts by ID, and then returns them in String Format
      * @return returns the contacts sorted by client entry number
      */
     public String returnInfoByID(){
@@ -269,7 +293,7 @@ public class ContactsApp {
     }
 
     /**
-     * returnInfoByName method
+     * Sorts the Contacts by Name, and then returns them in String Format
      * @return returns the contacts sorted by client name
      */
     public String returnInfoByName(){

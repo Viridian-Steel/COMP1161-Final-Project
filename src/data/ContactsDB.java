@@ -19,20 +19,13 @@ public class ContactsDB {
     ObjectOutputStream out;
 
     private ArrayList<Contact> db = new ArrayList<Contact>();
-    
-    //Autosave.
 
     public ContactsDB(String filename){
         this.filename = filename;
         
         try {
             File file = new File(filename);
-            if(file.createNewFile()){
-                System.out.println("File Created");
-            }
-            else{
-                System.out.println("File Exists");
-            }
+            file.createNewFile();
         } catch (IOException e) {
             System.out.println("File Error");
             
@@ -43,7 +36,7 @@ public class ContactsDB {
             updateDb();
             in.close();
         } catch(EOFException e){
-            System.out.println("Error while reading File: File is empty ");
+            System.out.println("File is empty.");
         }catch (IOException | NullPointerException ioe) {
             System.out.println("Error while reading File. " + ioe.getMessage());
             ioe.printStackTrace();
@@ -85,7 +78,7 @@ public class ContactsDB {
      * @throws ClassNotFoundException
      * @throws EOFException
      */
-    @SuppressWarnings("unchecked") //I didn't know that was a thing until 5 seconds ago
+    @SuppressWarnings("unchecked") 
     private void updateDb() throws ClassNotFoundException, IOException{
         try {
             db = (ArrayList<Contact>) in.readObject();
@@ -112,7 +105,7 @@ public class ContactsDB {
 
     /**
      * Closes the file
-     * @throws IOException
+     * @throws IOException If an I/O Error has occured
      */
     public void close () throws IOException {
         out.close();

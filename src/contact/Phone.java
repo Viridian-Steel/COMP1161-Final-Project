@@ -1,6 +1,10 @@
+/**
+ * @author 620156598
+ */
+
 package contact;
 
-public class Phone {
+public class Phone implements java.io.Serializable {
     
 	private char type;   // type of phone M=Mobile W=Work
 	private long number; // 10 digit number for phone eg.8880001111

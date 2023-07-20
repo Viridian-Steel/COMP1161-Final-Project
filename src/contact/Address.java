@@ -1,6 +1,6 @@
 /**
- * Adress Class
- * @author 
+ * Address Class
+ * @author 620156598
  * @version 
  */
 package contact;

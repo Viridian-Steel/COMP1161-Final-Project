@@ -1,3 +1,7 @@
+/**
+ * @author 620156598
+ */
+
 package contact;
 
 import java.time.LocalDate;
@@ -5,13 +9,13 @@ import java.util.ArrayList;
 
 public class Contact extends Person implements Comparable<Contact> {
     
-    private static int counter=0;
+    private static int counter = 0;
     private int entryID;
     private int age;
     private Address address;
     private String alias;
-    private ArrayList<String> email_list = new ArrayList<>();
-    private ArrayList<Phone> phone = new ArrayList<>();
+    private ArrayList<String> email_list = new ArrayList<String>();
+    private ArrayList<Phone> phone = new ArrayList<Phone>();
     private static ArrayList<String> aliases = new ArrayList<String>();
     private LocalDate currentDate = LocalDate.now();
 
@@ -50,7 +54,7 @@ public class Contact extends Person implements Comparable<Contact> {
      * @return returns the incremental value that is used to set each contact's entry ID number
      */
     public static int getNextID(){
-        return counter++;
+        return ++counter;
     }
 
     /**
@@ -206,14 +210,10 @@ public class Contact extends Person implements Comparable<Contact> {
 
     /**
      * 
-     * @param other The object that will be compared to
+     * @param o The object that will be compared to
      */
-    //public int compareTo(Contact other){
-    //    return other.getName().compareTo(this.getName()); //compare by name
-    //}
 
     public int compareTo(Contact o){
-        //return this.entryID - o.getEntryNo();
      if (this.getEntryNo()==o.getEntryNo()){
         return 0;
      }

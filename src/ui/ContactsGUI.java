@@ -1,3 +1,6 @@
+/**
+ * @author 620156598
+ */
 package ui;
 
 import javax.swing.JFrame;
@@ -9,7 +12,7 @@ public class ContactsGUI {
     JFrame frame;
 
     public void go(ContactsApp app, String[] args) {
-        ContactsGUI.app = app; // hopefully this isn't some cyclic dependency bs
+        ContactsGUI.app = app; 
         //frame.setVisible(true);
         main(args);
     }

@@ -1,3 +1,7 @@
+/**
+ * @author 620154639, 620156598, 620146910
+ */
+
 package ui;
 
 import java.util.InputMismatchException;
@@ -14,7 +18,7 @@ public class ContactsTextUI {
         mainMenu();
     }
 
-    // to be implemented
+    //to be implemented
     private void mainMenu(){
         String topBar = "\n***********************************************\n";
         String title = "\nSYSTEM FOR CLIENT ADDRESSBOOK MANAGEMENT SYSTEM \n\n";
@@ -246,13 +250,14 @@ public class ContactsTextUI {
                     } else { break; }
                     
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Input was not a number");
+                    System.out.println("Input was not a number"); 
+
+    
                 }
 
             }
 
                 
-            // See? No longer unreachable
             System.out.println("Please enter the email you want to add");
             String email = input.nextLine();
 
@@ -270,7 +275,7 @@ public class ContactsTextUI {
         //try {       
         //} catch (Exception e) {
             //System.out.println("Something went wrong");
-       // }
+       //}
     //}
     private void viewContactsbyEntryNo(){
         System.out.println(app.returnInfoByID());
